@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notamy - Connessioni Anonime, Momenti Autentici</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #06b6d4;
+            --secondary: #0891b2;
+            --accent: #22d3ee;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            overflow: hidden;
+        }
+
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.7;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            top: -200px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+
+        .orb2 {
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+            bottom: -300px;
+            right: -300px;
+            animation-delay: 5s;
+        }
+
+        .orb3 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(100px, -100px) scale(1.1); }
+            50% { transform: translate(-100px, 100px) scale(0.9); }
+            75% { transform: translate(50px, 50px) scale(1.05); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 1rem 5%;
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem 5% 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradientShift 5s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .primary-button {
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .secondary-button {
+            padding: 1rem 2.5rem;
+            background: transparent;
+            border: 2px solid var(--glass-border);
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .secondary-button:hover {
+            background: var(--glass);
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+
+        /* 3D Phone Mockup */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInUp 0.8s ease-out 0.6s backwards;
+        }
+
+        .phone-mockup {
+            width: 300px;
+            height: 600px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 40px;
+            position: relative;
+            transform: perspective(1000px) rotateY(-15deg) rotateX(5deg);
+            box-shadow: 
+                0 50px 100px rgba(0, 0, 0, 0.5),
+                inset 0 0 0 2px rgba(255, 255, 255, 0.1);
+            animation: phoneFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes phoneFloat {
+            0%, 100% { transform: perspective(1000px) rotateY(-15deg) rotateX(5deg) translateY(0); }
+            50% { transform: perspective(1000px) rotateY(-15deg) rotateX(5deg) translateY(-20px); }
+        }
+
+        .phone-screen {
+            position: absolute;
+            inset: 10px;
+            background: #000;
+            border-radius: 30px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .demo-content {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particle 3s infinite;
+        }
+
+        @keyframes particle {
+            0% {
+                opacity: 0;
+                transform: translateY(100px) scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-50px) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-200px) scale(0);
+            }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: #94a3b8;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        /* Moments Section */
+        .moments-section {
+            padding: 8rem 5%;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(34, 211, 238, 0.1));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .moments-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .moments-visual {
+            position: relative;
+            height: 600px;
+        }
+
+        .moment-card {
+            position: absolute;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            width: 280px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .moment-card:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .moment1 {
+            top: 50px;
+            left: 50px;
+            animation: momentFloat1 8s infinite ease-in-out;
+        }
+
+        .moment2 {
+            top: 200px;
+            right: 50px;
+            animation: momentFloat2 8s infinite ease-in-out;
+        }
+
+        .moment3 {
+            bottom: 50px;
+            left: 100px;
+            animation: momentFloat3 8s infinite ease-in-out;
+        }
+
+        @keyframes momentFloat1 {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes momentFloat2 {
+            0%, 100% { transform: translateY(0) rotate(5deg); }
+            50% { transform: translateY(20px) rotate(-5deg); }
+        }
+
+        @keyframes momentFloat3 {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+
+        .moment-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .moment-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .moment-user {
+            font-weight: 600;
+        }
+
+        .moment-content {
+            color: #e2e8f0;
+            margin-bottom: 1rem;
+        }
+
+        .moment-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 6rem 5%;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        /* Interactive Elements */
+        .glow-button {
+            position: relative;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .glow-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .glow-button:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 5% 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-visual {
+                margin-top: 3rem;
+            }
+
+            .moments-container {
+                grid-template-columns: 1fr;
+            }
+
+            .moments-visual {
+                height: 400px;
+                margin-bottom: 3rem;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .moment-card {
+                width: 240px;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .primary-button,
+            .secondary-button {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Cursor Effects */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            transition: all 0.1s ease;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 9998;
+        }
+
+        .cursor.hover {
+            transform: translate(-50%, -50%) scale(2);
+            background: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-orb orb1"></div>
+        <div class="floating-orb orb2"></div>
+        <div class="floating-orb orb3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Notamy</div>
+            <div class="nav-links">
+                <a href="#features" class="nav-link">Funzionalità</a>
+                <a href="#moments" class="nav-link">Moments</a>
+                <a href="#privacy" class="nav-link">Privacy</a>
+                <button class="cta-button">Inizia Ora</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    Connessioni <span class="gradient-text">Anonime</span>,<br>
+                    Momenti <span class="gradient-text">Autentici</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Scopri un nuovo modo di connetterti. Condividi momenti effimeri, 
+                    chatta in modo sicuro e incontra persone vicine mantenendo la tua privacy.
+                </p>
+                <div class="hero-cta">
+                    <button class="primary-button glow-button">Scarica per iOS</button>
+                    <button class="secondary-button">Scarica per Android</button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="demo-content">
+                            <div class="demo-particles">
+                                <div class="particle" style="left: 20%; animation-delay: 0s;"></div>
+                                <div class="particle" style="left: 40%; animation-delay: 0.5s;"></div>
+                                <div class="particle" style="left: 60%; animation-delay: 1s;"></div>
+                                <div class="particle" style="left: 80%; animation-delay: 1.5s;"></div>
+                                <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
+                                <div class="particle" style="left: 70%; animation-delay: 2.5s;"></div>
+                            </div>
+                            <div style="text-align: center; z-index: 1;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">◈</div>
+                                <div style="font-size: 1.2rem; font-weight: 600;">Notamy</div>
+                                <div style="font-size: 0.9rem; color: #94a3b8; margin-top: 0.5rem;">
+                                    Connetti. Condividi. Resta Anonimo.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features reveal">
+        <div class="section-header">
+            <h2 class="section-title gradient-text">Funzionalità Innovative</h2>
+            <p class="section-subtitle">Tutto ciò di cui hai bisogno per connetterti in modo autentico</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">◈</div>
+                <h3 class="feature-title">Autenticazione Anonima</h3>
+                <p class="feature-description">
+                    Nessuna email, nessun numero di telefono. Mantieni la tua identità privata 
+                    e scegli quando e con chi rivelarti.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">◉</div>
+                <h3 class="feature-title">Chat E2E Criptata</h3>
+                <p class="feature-description">
+                    Messaggi crittografati end-to-end con AES-256. Le tue conversazioni 
+                    rimangono private, sempre.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">◇</div>
+                <h3 class="feature-title">Moments Effimeri</h3>
+                <p class="feature-description">
+                    Condividi pensieri e momenti che scompaiono. Vivi il presente 
+                    senza la pressione della permanenza digitale.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">◍</div>
+                <h3 class="feature-title">Discovery Locale</h3>
+                <p class="feature-description">
+                    Scopri persone e momenti vicino a te. Connettiti con chi condivide 
+                    i tuoi spazi senza compromettere la privacy.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">◆</div>
+                <h3 class="feature-title">Badge & Gamification</h3>
+                <p class="feature-description">
+                    Guadagna badge per le tue interazioni positive. Un sistema di ricompense 
+                    che incoraggia connessioni autentiche.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Moments Section -->
+    <section id="moments" class="moments-section reveal">
+        <div class="moments-container">
+            <div class="moments-visual">
+                <div class="moment-card moment1">
+                    <div class="moment-header">
+                        <div class="moment-avatar"></div>
+                        <div class="moment-user">Esploratore Curioso</div>
+                    </div>
+                    <div class="moment-content">
+                        "Il tramonto di oggi mi ricorda che ogni giorno è un nuovo inizio 🌅"
+                    </div>
+                    <div class="moment-footer">
+                        <span>2 min fa</span>
+                        <span>◆ 42</span>
+                    </div>
+                </div>
+                <div class="moment-card moment2">
+                    <div class="moment-header">
+                        <div class="moment-avatar" style="background: linear-gradient(135deg, #0891b2, #14b8a6);"></div>
+                        <div class="moment-user">Anima Creativa</div>
+                    </div>
+                    <div class="moment-content">
+                        "La musica nel parco oggi è magica. Qualcuno vuole ballare? 💃"
+                    </div>
+                    <div class="moment-footer">
+                        <span>5 min fa</span>
+                        <span>◆ 28</span>
+                    </div>
+                </div>
+                <div class="moment-card moment3">
+                    <div class="moment-header">
+                        <div class="moment-avatar" style="background: linear-gradient(135deg, #22d3ee, #0e7490);"></div>
+                        <div class="moment-user">Pensatore Notturno</div>
+                    </div>
+                    <div class="moment-content">
+                        "Le stelle stanotte sono incredibili. L'universo ci ricorda quanto siamo piccoli ✨"
+                    </div>
+                    <div class="moment-footer">
+                        <span>10 min fa</span>
+                        <span>◆ 67</span>
+                    </div>
+                </div>
+            </div>
+            <div class="moments-text">
+                <h2 class="section-title">Momenti che <span class="gradient-text">Contano</span></h2>
+                <p class="section-subtitle" style="font-size: 1.25rem; line-height: 1.8; margin-bottom: 2rem;">
+                    Condividi pensieri effimeri con chi ti è vicino. I Moments sono post 
+                    geo-localizzati che scompaiono, perfetti per catturare l'essenza del presente.
+                </p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+                        <span style="font-size: 1.5rem;">◈</span>
+                        <span>Condividi momenti autentici senza la pressione dei like permanenti</span>
+                    </li>
+                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+                        <span style="font-size: 1.5rem;">◎</span>
+                        <span>I contenuti scompaiono dopo 24 ore mantenendo tutto fresco</span>
+                    </li>
+                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+                        <span style="font-size: 1.5rem;">◍</span>
+                        <span>Scopri cosa succede intorno a te in tempo reale</span>
+                    </li>
+                </ul>
+                <button class="primary-button glow-button" style="margin-top: 2rem;">Esplora i Moments</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats reveal">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">100K+</div>
+                <div class="stat-label">Utenti Attivi</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">2M+</div>
+                <div class="stat-label">Momenti Condivisi</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">500K+</div>
+                <div class="stat-label">Connessioni Create</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">4.8◆</div>
+                <div class="stat-label">Valutazione App</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Section -->
+    <section id="privacy" class="features reveal" style="background: linear-gradient(135deg, rgba(34, 211, 238, 0.1), rgba(6, 182, 212, 0.1));">
+        <div class="section-header">
+            <h2 class="section-title">Privacy by <span class="gradient-text">Design</span></h2>
+            <p class="section-subtitle">La tua sicurezza è la nostra priorità assoluta</p>
+        </div>
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; margin-top: 3rem;">
+                <div>
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">◊</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Zero Dati Personali</h3>
+                    <p style="color: #94a3b8;">Non richiediamo email, telefono o dati personali. La tua identità rimane tua.</p>
+                </div>
+                <div>
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">◈</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Crittografia Militare</h3>
+                    <p style="color: #94a3b8;">Utilizziamo AES-256-GCM per proteggere ogni messaggio che invii.</p>
+                </div>
+                <div>
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">◇</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Contenuti Effimeri</h3>
+                    <p style="color: #94a3b8;">I tuoi momenti scompaiono automaticamente. Nessuna traccia permanente.</p>
+                </div>
+                <div>
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">◉</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Controllo Totale</h3>
+                    <p style="color: #94a3b8;">Decidi tu quando e con chi condividere la tua identità.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="hero" style="min-height: 60vh; background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(34, 211, 238, 0.2));">
+        <div style="text-align: center;">
+            <h2 class="section-title">Pronto per <span class="gradient-text">Connetterti</span>?</h2>
+            <p class="section-subtitle" style="margin-bottom: 3rem;">
+                Unisciti a migliaia di persone che stanno già vivendo connessioni più autentiche
+            </p>
+            <div class="hero-cta" style="justify-content: center;">
+                <button class="primary-button glow-button">
+                    <span style="display: flex; align-items: center; gap: 0.5rem;">
+                        ◇ Scarica per iOS
+                    </span>
+                </button>
+                <button class="primary-button glow-button">
+                    <span style="display: flex; align-items: center; gap: 0.5rem;">
+                        ◈ Scarica per Android
+                    </span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#" class="social-link">◉</a>
+                <a href="#" class="social-link">◈</a>
+                <a href="#" class="social-link">◇</a>
+                <a href="#" class="social-link">◆</a>
+            </div>
+            <p style="color: #64748b;">
+                © 2025 Notamy. Costruito con ♦ per connessioni autentiche.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
+        let mouseX = 0, mouseY = 0;
+        let followerX = 0, followerY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+        });
+
+        setInterval(() => {
+            followerX += (mouseX - followerX) * 0.1;
+            followerY += (mouseY - followerY) * 0.1;
+            follower.style.left = followerX + 'px';
+            follower.style.top = followerY + 'px';
+        }, 20);
+
+        // Cursor hover effects
+        const hoverElements = document.querySelectorAll('button, a, .feature-card, .moment-card');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll reveal
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 150;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    el.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Dynamic particle generation
+        const demoContent = document.querySelector('.demo-particles');
+        setInterval(() => {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = '0s';
+            particle.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            demoContent.appendChild(particle);
+            setTimeout(() => particle.remove(), 4000);
+        }, 300);
+
+        // Parallax effect on hero
+        const hero = document.querySelector('.hero');
+        const phone = document.querySelector('.phone-mockup');
+        
+        hero.addEventListener('mousemove', (e) => {
+            const x = (e.clientX - window.innerWidth / 2) / 50;
+            const y = (e.clientY - window.innerHeight / 2) / 50;
+            
+            phone.style.transform = `perspective(1000px) rotateY(${-15 + x}deg) rotateX(${5 + y}deg)`;
+        });
+
+        // Button ripple effect
+        document.querySelectorAll('.glow-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+                
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Add ripple styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.5);
+                transform: scale(0);
+                animation: ripple-animation 0.6s ease-out;
+                pointer-events: none;
+            }
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
