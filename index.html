@@ -379,7 +379,7 @@
             transform: translate(-50%, -50%);
             font-size: 8rem;
             font-weight: 900;
-            background: linear-gradient(135deg, var(--cyan-neon), var(--cyan-deep), var(--purple-accent));
+            background: linear-gradient(135deg, #00ffff, #00cccc, #b366ff);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -387,17 +387,6 @@
             animation: finalAppear 3s ease-out 11.5s forwards;
             opacity: 0;
             z-index: 300;
-            filter: 
-                drop-shadow(0 0 30px var(--cyan-neon))
-                drop-shadow(0 0 60px var(--purple-accent))
-                drop-shadow(0 0 90px var(--magenta-glow));
-        }
-
-        /* Gentle breathing effect for final N */
-        .final-n.breathing {
-            animation: 
-                finalAppear 3s ease-out 11.5s forwards,
-                gentleBreath 4s ease-in-out 14.5s infinite;
         }
 
         /* Title */
@@ -447,7 +436,7 @@
             transform: translateX(-50%);
             font-size: 3rem;
             font-weight: 900;
-            background: linear-gradient(45deg, var(--magenta-glow), var(--cyan-neon), var(--purple-accent));
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #b366ff);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -456,7 +445,6 @@
             letter-spacing: 5px;
             opacity: 0;
             animation: notamyAppear 2s ease-out 13s forwards, gradientShift 3s ease-in-out 15s infinite;
-            text-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
             z-index: 200;
         }
 
@@ -680,44 +668,16 @@
                 opacity: 0;
                 transform: translate(-50%, -50%) scale(0.6);
                 background-position: 0% 50%;
-                filter: 
-                    drop-shadow(0 0 20px var(--cyan-neon))
-                    drop-shadow(0 0 40px var(--purple-accent));
             }
             50% { 
                 opacity: 0.8;
                 transform: translate(-50%, -50%) scale(0.9);
                 background-position: 50% 50%;
-                filter: 
-                    drop-shadow(0 0 35px var(--cyan-neon))
-                    drop-shadow(0 0 70px var(--purple-accent))
-                    drop-shadow(0 0 105px var(--magenta-glow));
             }
             100% { 
                 opacity: 1;
                 transform: translate(-50%, -50%) scale(1);
                 background-position: 100% 50%;
-                filter: 
-                    drop-shadow(0 0 30px var(--cyan-neon))
-                    drop-shadow(0 0 60px var(--purple-accent))
-                    drop-shadow(0 0 90px var(--magenta-glow));
-            }
-        }
-
-        @keyframes gentleBreath {
-            0%, 100% { 
-                transform: translate(-50%, -50%) scale(1);
-                filter: 
-                    drop-shadow(0 0 30px var(--cyan-neon))
-                    drop-shadow(0 0 60px var(--purple-accent))
-                    drop-shadow(0 0 90px var(--magenta-glow));
-            }
-            50% { 
-                transform: translate(-50%, -50%) scale(1.02);
-                filter: 
-                    drop-shadow(0 0 35px var(--cyan-neon))
-                    drop-shadow(0 0 70px var(--purple-accent))
-                    drop-shadow(0 0 105px var(--magenta-glow));
             }
         }
 
@@ -835,11 +795,6 @@
     <button class="restart-button" onclick="restartSequence()">Play Again</button>
 
     <script>
-        // Add breathing effect to final N after it appears
-        setTimeout(() => {
-            document.querySelector('.final-n').classList.add('breathing');
-        }, 14500);
-
         // Update phase indicator during sequence
         const phases = [
             "Stellar Birth Sequence",
@@ -936,7 +891,7 @@
         // Console log for demo
         console.log("🌟 This is: Single sequence initialized");
         console.log("⏱️  Total duration: 15 seconds");
-        console.log("✨ Final N: Permanent with gentle breathing");
+        console.log("✨ Final N: Clean and precise on black");
         console.log("🎯 This is Notamy!");
     </script>
 </body>
