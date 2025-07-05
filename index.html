@@ -764,6 +764,13 @@
 <body>
     <div class="cosmic-background"></div>
 
+    <!-- Audio Background -->
+    <audio id="backgroundMusic" autoplay loop>
+        <source src="never-enough.mp3" type="audio/mpeg">
+        <!-- Puoi aggiungere altri formati per compatibilità -->
+        <source src="never-enough.ogg" type="audio/ogg">
+    </audio>
+
     <div class="stellar-info">
         <h1 class="stellar-title">This is</h1>
         <div class="phase-indicator">Stellar Birth Sequence</div>
@@ -838,11 +845,10 @@
             "Shock Wave Propagation", 
             "Stellar Debris Formation",
             "Singularity Birth",
-            "N Emergence",
             "Genesis Complete"
         ];
 
-        const phaseTimes = [0, 500, 3000, 5000, 6500, 7500, 8000, 8500, 9500, 11000, 14500];
+        const phaseTimes = [0, 500, 3000, 5000, 6500, 7500, 8000, 8500, 9500, 14500];
 
         function updatePhaseIndicator() {
             const phaseIndicator = document.querySelector('.phase-indicator');
@@ -868,6 +874,38 @@
 
         // Start phase updates immediately
         updatePhaseIndicator();
+
+        // Play background music
+        const audio = document.getElementById('backgroundMusic');
+        if (audio) {
+            audio.volume = 0.5; // Set volume to 50%
+            audio.play().catch(e => {
+                console.log("Autoplay prevented. Click to start music.");
+                // Create a play button if autoplay is blocked
+                const playBtn = document.createElement('button');
+                playBtn.textContent = '🎵 Play Music';
+                playBtn.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 10px 20px;
+                    background: linear-gradient(45deg, var(--cyan-neon), var(--purple-accent));
+                    border: none;
+                    border-radius: 25px;
+                    color: #000;
+                    font-weight: 700;
+                    cursor: pointer;
+                    z-index: 1001;
+                    animation: pulse 2s infinite;
+                `;
+                document.body.appendChild(playBtn);
+                
+                playBtn.onclick = () => {
+                    audio.play();
+                    playBtn.remove();
+                };
+            });
+        }
 
         // Add stellar wind particles during early phases
         function createStellarWind() {
