@@ -777,12 +777,6 @@
 <body>
     <div class="cosmic-background"></div>
 
-    <!-- Audio Background con timing specifico -->
-    <audio id="backgroundMusic" autoplay>
-        <!-- Musica epica gratuita da Pixabay -->
-        <source src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_410bafe97f.mp3" type="audio/mpeg">
-    </audio>
-
     <div class="stellar-info">
         <h1 class="stellar-title">This is</h1>
         <div class="phase-indicator">Stellar Birth Sequence</div>
@@ -886,47 +880,6 @@
 
         // Start phase updates immediately
         updatePhaseIndicator();
-
-        // Play background music with specific timing
-        const audio = document.getElementById('backgroundMusic');
-        if (audio) {
-            audio.volume = 0.5; // Set volume to 50%
-            
-            // Since animation is 15 seconds, we'll play a 15-second clip
-            // If you want the 2:00-5:00 section, you'll need to edit the audio file
-            
-            audio.play().catch(e => {
-                console.log("Autoplay prevented. Click to start music.");
-                // Create a play button if autoplay is blocked
-                const playBtn = document.createElement('button');
-                playBtn.textContent = '🎵 Play Music';
-                playBtn.style.cssText = `
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    padding: 10px 20px;
-                    background: linear-gradient(45deg, var(--cyan-neon), var(--purple-accent));
-                    border: none;
-                    border-radius: 25px;
-                    color: #000;
-                    font-weight: 700;
-                    cursor: pointer;
-                    z-index: 1001;
-                    animation: pulse 2s infinite;
-                `;
-                document.body.appendChild(playBtn);
-                
-                playBtn.onclick = () => {
-                    audio.play();
-                    playBtn.remove();
-                };
-            });
-            
-            // Stop audio after animation completes (15 seconds)
-            setTimeout(() => {
-                audio.pause();
-            }, 15000);
-        }
 
         // Add stellar wind particles during early phases
         function createStellarWind() {
