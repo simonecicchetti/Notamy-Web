@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notamy - Be Who You Choose to Be</title>
+    <title>Notamy - SINGLE STELLAR GENESIS</title>
     <style>
         * {
             margin: 0;
@@ -17,1333 +17,915 @@
             --cyan-light: #7affff;
             --purple-accent: #b366ff;
             --magenta-glow: #ff00ff;
-            --black-deep: #000000;
-            --black-soft: #0a0a0a;
-            --gray-dark: #1a1a1a;
             --white: #ffffff;
-            --gradient-main: linear-gradient(135deg, #00ffff, #00cccc, #b366ff);
-            --gradient-glow: linear-gradient(135deg, #00ffff, #ff00ff);
+            --stellar-core: #fff3cd;
+            --stellar-hot: #ffaa00;
+            --stellar-plasma: #ff4500;
+            --neutron-blue: #4169e1;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--black-deep);
-            color: var(--white);
-            overflow-x: hidden;
+            background: #000000;
+            overflow: hidden;
+            min-height: 100vh;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Neon Grid Background */
-        .neon-grid {
+        /* Cosmic Background - Only during stellar phases */
+        .cosmic-background {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 15% 25%, #000011 0%, transparent 50%),
+                radial-gradient(circle at 85% 75%, #001122 0%, transparent 50%),
+                radial-gradient(circle at 50% 10%, #000033 0%, transparent 60%);
+            animation: cosmicFadeOut 15s ease-out forwards;
             z-index: -2;
         }
 
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        /* Floating Neon Shapes */
-        .neon-shape {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.5;
-            animation: float 15s infinite ease-in-out;
-            z-index: -1;
-        }
-
-        .shape1 {
-            width: 400px;
-            height: 400px;
-            background: var(--cyan-neon);
-            top: -200px;
-            left: -200px;
-        }
-
-        .shape2 {
-            width: 600px;
-            height: 600px;
-            background: var(--purple-accent);
-            bottom: -300px;
-            right: -300px;
-            animation-delay: 5s;
-        }
-
-        .shape3 {
-            width: 300px;
-            height: 300px;
-            background: var(--magenta-glow);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-delay: 10s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(100px, -100px) scale(1.1); }
-            66% { transform: translate(-100px, 100px) scale(0.9); }
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 5%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--cyan-neon);
-            text-shadow: 
-                0 0 10px var(--cyan-neon),
-                0 0 20px var(--cyan-neon),
-                0 0 30px var(--cyan-neon);
-            animation: neonPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes neonPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: var(--cyan-neon);
-            text-shadow: 0 0 10px var(--cyan-neon);
-        }
-
-        .download-btn {
-            padding: 0.75rem 2rem;
-            background: var(--gradient-main);
-            border: none;
-            border-radius: 100px;
-            color: var(--black-deep);
-            font-weight: 700;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .download-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 
-                0 0 20px var(--cyan-neon),
-                0 0 40px var(--cyan-neon);
-        }
-
-        /* Hero Section - TikTok Style */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 5rem 5%;
-            position: relative;
-        }
-
-        .hero-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .hero-text {
-            z-index: 2;
-        }
-
-        .hero-title {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 900;
-            line-height: 1;
-            margin-bottom: 1.5rem;
-            background: var(--gradient-glow);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: textGlow 3s ease-in-out infinite;
-        }
-
-        @keyframes textGlow {
-            0%, 100% { 
-                filter: brightness(1) drop-shadow(0 0 20px var(--cyan-neon));
-            }
-            50% { 
-                filter: brightness(1.2) drop-shadow(0 0 40px var(--cyan-neon));
-            }
-        }
-
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: var(--cyan-light);
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .cta-container {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .cta-primary {
-            padding: 1.2rem 2.5rem;
-            background: var(--gradient-main);
-            border: none;
-            border-radius: 100px;
-            color: var(--black-deep);
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-primary::before {
+        .cosmic-background::before {
             content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .cta-primary:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .cta-secondary {
-            padding: 1.2rem 2.5rem;
-            background: transparent;
-            border: 2px solid var(--cyan-neon);
-            border-radius: 100px;
-            color: var(--cyan-neon);
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .cta-secondary:hover {
-            background: var(--cyan-neon);
-            color: var(--black-deep);
-            box-shadow: 
-                0 0 20px var(--cyan-neon),
-                inset 0 0 20px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Phone Mockup - App Style */
-        .hero-visual {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .phone-container {
-            position: relative;
-            width: 350px;
-            height: 700px;
-            transform: perspective(1000px) rotateY(-15deg);
-            animation: phoneFloat 6s ease-in-out infinite;
-        }
-
-        @keyframes phoneFloat {
-            0%, 100% { transform: perspective(1000px) rotateY(-15deg) translateY(0); }
-            50% { transform: perspective(1000px) rotateY(-15deg) translateY(-20px); }
-        }
-
-        .phone-frame {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #1a1a1a, #000);
-            border-radius: 40px;
-            padding: 10px;
-            box-shadow: 
-                0 0 60px rgba(0, 255, 255, 0.5),
-                inset 0 0 20px rgba(0, 255, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .phone-screen {
-            width: 100%;
-            height: 100%;
-            background: #000;
-            border-radius: 30px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* App Interface */
-        .app-container {
-            width: 100%;
-            height: 100%;
-            background: #000;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        /* Onboarding Screen Styles */
-        .onboarding-screen {
-            width: 100%;
-            height: 100%;
-            background: #000;
-            background-image: linear-gradient(135deg, #000000, #0a0a0a);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-            position: relative;
-        }
-
-        /* Background overlay */
-        .bg-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.3);
-            pointer-events: none;
-        }
-
-        /* Logo */
-        .logo-container {
-            margin-bottom: 60px;
-            animation: logoFadeIn 1s ease-out;
-        }
-
-        @keyframes logoFadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .logo-glass {
-            width: 100px;
-            height: 100px;
-            border-radius: 30px;
-            padding: 2px;
-            background: rgba(10, 10, 10, 0.8);
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .logo-gradient {
             position: absolute;
             inset: 0;
-            background: var(--gradient-main);
-            border-radius: 30px;
-            opacity: 0.8;
+            background: 
+                radial-gradient(circle at random, rgba(255, 255, 255, 0.8) 1px, transparent 1px),
+                radial-gradient(circle at random, rgba(255, 255, 255, 0.6) 1px, transparent 1px),
+                radial-gradient(circle at random, rgba(255, 255, 255, 0.4) 1px, transparent 1px);
+            background-size: 200px 200px, 300px 300px, 400px 400px;
+            animation: starfieldFadeOut 15s ease-out forwards;
         }
 
-        .logo-inner {
-            position: relative;
-            width: 96px;
-            height: 96px;
-            border-radius: 28px;
-            background: #000;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1;
+        @keyframes cosmicFadeOut {
+            0% { opacity: 1; }
+            70% { opacity: 1; }
+            85% { opacity: 0.3; }
+            100% { opacity: 0; }
         }
 
-        /* N Shape */
-        .n-shape {
-            width: 50px;
-            height: 50px;
-            position: relative;
-        }
-
-        .n-bar-left {
-            position: absolute;
-            width: 8px;
-            height: 50px;
-            left: 0;
-            background: var(--cyan-neon);
-            border-radius: 2px;
-        }
-
-        .n-bar-right {
-            position: absolute;
-            width: 8px;
-            height: 50px;
-            right: 0;
-            background: var(--cyan-light);
-            border-radius: 2px;
-        }
-
-        .n-bar-diagonal {
-            position: absolute;
-            width: 56px;
-            height: 8px;
-            top: 21px;
-            left: -3px;
-            background: var(--cyan-deep);
-            border-radius: 2px;
-            transform: rotate(-35deg);
-        }
-
-        /* Text */
-        .text-container {
-            text-align: center;
-            margin-bottom: 60px;
-            animation: textFadeIn 1s ease-out 0.3s both;
-        }
-
-        @keyframes textFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
+        @keyframes starfieldFadeOut {
+            0% { 
                 opacity: 1;
-                transform: translateY(0);
+                transform: translate(0, 0); 
             }
-        }
-
-        .app-name {
-            font-size: 32px;
-            font-weight: 200;
-            color: var(--white);
-            letter-spacing: -1px;
-            margin-bottom: 8px;
-        }
-
-        .app-tagline {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.6);
-            letter-spacing: 0.5px;
-        }
-
-        /* Get Started Button */
-        .get-started-button {
-            border-radius: 50px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            animation: buttonFadeIn 1s ease-out 0.6s both;
-        }
-
-        @keyframes buttonFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
+            70% { 
                 opacity: 1;
-                transform: translateY(0);
+                transform: translate(-50px, -50px); 
+            }
+            85% { 
+                opacity: 0.2;
+                transform: translate(-80px, -80px); 
+            }
+            100% { 
+                opacity: 0;
+                transform: translate(-100px, -100px); 
             }
         }
 
-        .get-started-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
-        }
-
-        .button-gradient {
-            background: var(--gradient-main);
-            padding: 14px 50px;
+        .stellar-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            perspective: 2000px;
         }
 
-        .button-gradient span {
-            color: #000;
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 8rem 5%;
+        .stellar-system {
             position: relative;
-            background: linear-gradient(180deg, var(--black-deep) 0%, var(--black-soft) 100%);
+            width: 400px;
+            height: 400px;
+            animation: systemFadeOut 15s ease-out forwards;
         }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 5rem;
+        @keyframes systemFadeOut {
+            0% { opacity: 1; }
+            77% { opacity: 1; }
+            90% { opacity: 0; }
+            100% { opacity: 0; }
         }
 
-        .section-title {
-            font-size: 4rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            background: var(--gradient-main);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-subtitle {
-            font-size: 1.25rem;
-            color: var(--cyan-light);
-            opacity: 0.8;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            background: rgba(0, 255, 255, 0.05);
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 2.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
+        /* PHASE 1: Main Sequence Star */
+        .main-star {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, var(--cyan-neon), transparent);
-            transform: rotate(45deg);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .feature-card:hover::before {
-            opacity: 0.1;
-            animation: shimmer 0.5s ease;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--cyan-neon);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(
+                circle,
+                var(--stellar-core) 0%,
+                var(--stellar-hot) 30%,
+                var(--stellar-plasma) 70%,
+                transparent 100%
+            );
+            border-radius: 50%;
+            animation: mainSequenceOnce 3s ease-in-out;
             box-shadow: 
-                0 20px 40px rgba(0, 255, 255, 0.3),
-                inset 0 0 30px rgba(0, 255, 255, 0.1);
+                0 0 100px var(--stellar-hot),
+                0 0 200px var(--stellar-plasma),
+                0 0 300px rgba(255, 170, 0, 0.3);
+            filter: blur(2px);
         }
 
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            background: var(--gradient-main);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .feature-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--cyan-neon);
-        }
-
-        .feature-description {
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
-        }
-
-        /* Moments Section - TikTok Style */
-        .moments {
-            padding: 8rem 5%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .moments-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .moments-scroll {
-            display: flex;
-            gap: 2rem;
-            overflow-x: auto;
-            padding: 2rem 0;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-
-        .moments-scroll::-webkit-scrollbar {
-            display: none;
-        }
-
-        .moment-card {
-            flex: 0 0 300px;
-            height: 500px;
-            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(179, 102, 255, 0.1));
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            border-radius: 20px;
-            padding: 2rem;
-            scroll-snap-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .moment-card::after {
-            content: '';
+        .stellar-corona {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 100px;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid rgba(255, 170, 0, 0.3);
+            border-radius: 50%;
+            animation: coronaOnce 3s ease-in-out;
         }
 
-        .moment-card:hover {
-            transform: scale(1.05);
-            border-color: var(--cyan-neon);
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
+        .stellar-corona:nth-child(2) {
+            width: 250px;
+            height: 250px;
+            animation-delay: 0.1s;
+            border-color: rgba(255, 69, 0, 0.4);
         }
 
-        .moment-user {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
+        .stellar-corona:nth-child(3) {
+            width: 300px;
+            height: 300px;
+            animation-delay: 0.2s;
+            border-color: rgba(255, 170, 0, 0.3);
         }
 
-        .moment-avatar {
+        .stellar-corona:nth-child(4) {
+            width: 350px;
+            height: 350px;
+            animation-delay: 0.3s;
+            border-color: rgba(255, 255, 205, 0.2);
+        }
+
+        /* PHASE 2: Red Giant Phase */
+        .red-giant {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(
+                circle,
+                var(--stellar-core) 0%,
+                #ff6b47 40%,
+                #ff1744 80%,
+                transparent 100%
+            );
+            border-radius: 50%;
+            animation: redGiantOnce 2s ease-in-out 3s;
+            opacity: 0;
+            box-shadow: 
+                0 0 150px #ff6b47,
+                0 0 300px #ff1744;
+            filter: blur(3px);
+        }
+
+        /* PHASE 3: Pre-Collapse Instability */
+        .pre-collapse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(
+                circle,
+                var(--white) 0%,
+                var(--stellar-hot) 20%,
+                #ff1744 60%,
+                #8b0000 100%
+            );
+            border-radius: 50%;
+            animation: preCollapseOnce 1.5s ease-in-out 5s;
+            opacity: 0;
+            box-shadow: 
+                0 0 80px var(--white),
+                0 0 160px #ff1744;
+        }
+
+        /* PHASE 4: Core Collapse */
+        .core-collapse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(
+                circle,
+                var(--white) 0%,
+                var(--neutron-blue) 50%,
+                transparent 100%
+            );
+            border-radius: 50%;
+            animation: coreCollapseOnce 1s ease-in 6.5s;
+            opacity: 0;
+        }
+
+        /* PHASE 5: Supernova Explosion */
+        .supernova {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 50px;
             height: 50px;
-            background: var(--gradient-main);
+            background: radial-gradient(
+                circle,
+                var(--white) 0%,
+                var(--cyan-neon) 30%,
+                var(--purple-accent) 60%,
+                var(--magenta-glow) 100%
+            );
             border-radius: 50%;
-            position: relative;
+            animation: supernovaOnce 1s ease-out 7.5s;
+            opacity: 0;
         }
 
-        .moment-avatar::after {
-            content: '';
+        /* PHASE 6: Shock Waves */
+        .shock-wave {
             position: absolute;
-            inset: -3px;
-            background: var(--gradient-main);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 3px solid transparent;
             border-radius: 50%;
-            z-index: -1;
-            filter: blur(10px);
-            opacity: 0.5;
+            animation: shockWaveOnce 1.5s ease-out;
+            opacity: 0;
         }
 
-        .moment-username {
-            font-weight: 600;
-            color: var(--cyan-neon);
-        }
-
-        .moment-content {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-        }
-
-        .moment-time {
-            position: absolute;
-            bottom: 1rem;
-            left: 2rem;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.9rem;
-            z-index: 1;
-        }
-
-        /* Privacy Section */
-        .privacy {
-            padding: 8rem 5%;
-            background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(179, 102, 255, 0.05));
-            position: relative;
-        }
-
-        .privacy-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 3rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .privacy-item {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 20px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .privacy-item:hover {
-            transform: translateY(-5px);
+        .shock-wave:nth-child(7) {
+            animation-delay: 7.6s;
             border-color: var(--cyan-neon);
-            background: rgba(0, 255, 255, 0.05);
         }
 
-        .privacy-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--cyan-neon);
-            text-shadow: 0 0 20px var(--cyan-neon);
+        .shock-wave:nth-child(8) {
+            animation-delay: 7.7s;
+            border-color: var(--purple-accent);
         }
 
-        /* CTA Final */
-        .final-cta {
-            padding: 8rem 5%;
-            text-align: center;
-            position: relative;
+        .shock-wave:nth-child(9) {
+            animation-delay: 7.8s;
+            border-color: var(--magenta-glow);
         }
 
-        .cta-title {
-            font-size: 4rem;
-            font-weight: 900;
-            margin-bottom: 2rem;
-            background: var(--gradient-glow);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: textGlow 3s ease-in-out infinite;
-        }
-
-        /* Footer */
-        footer {
-            padding: 4rem 5% 2rem;
-            text-align: center;
-            border-top: 1px solid rgba(0, 255, 255, 0.2);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .social-link {
-            width: 50px;
-            height: 50px;
-            background: rgba(0, 255, 255, 0.1);
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--cyan-neon);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.5rem;
-        }
-
-        .social-link:hover {
+        /* PHASE 7: Stellar Remnants */
+        .stellar-debris {
+            position: absolute;
+            width: 4px;
+            height: 4px;
             background: var(--cyan-neon);
-            color: var(--black-deep);
-            transform: scale(1.2) rotate(360deg);
+            border-radius: 50%;
+            animation: debrisOnce 2s ease-out;
+            opacity: 0;
+            box-shadow: 0 0 15px currentColor;
+        }
+
+        .stellar-debris:nth-child(10) {
+            top: 30%;
+            left: 30%;
+            animation-delay: 7.7s;
+            background: var(--cyan-neon);
+        }
+
+        .stellar-debris:nth-child(11) {
+            top: 25%;
+            right: 35%;
+            animation-delay: 7.8s;
+            background: var(--purple-accent);
+        }
+
+        .stellar-debris:nth-child(12) {
+            bottom: 30%;
+            left: 35%;
+            animation-delay: 7.9s;
+            background: var(--magenta-glow);
+        }
+
+        .stellar-debris:nth-child(13) {
+            bottom: 25%;
+            right: 30%;
+            animation-delay: 8s;
+            background: var(--cyan-light);
+        }
+
+        .stellar-debris:nth-child(14) {
+            top: 50%;
+            left: 20%;
+            animation-delay: 8.1s;
+            background: var(--cyan-neon);
+        }
+
+        .stellar-debris:nth-child(15) {
+            top: 50%;
+            right: 20%;
+            animation-delay: 8.2s;
+            background: var(--purple-accent);
+        }
+
+        /* PHASE 8: Singularity Formation */
+        .singularity {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: var(--white);
+            border-radius: 50%;
+            animation: singularityOnce 1s ease-in-out 8.5s;
+            opacity: 0;
+            box-shadow: 
+                0 0 50px var(--cyan-neon),
+                0 0 100px var(--purple-accent),
+                0 0 150px var(--magenta-glow);
+        }
+
+        /* PHASE 9: N Emergence */
+        .emergent-n {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 6rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--cyan-neon), var(--white), var(--purple-accent), var(--magenta-glow));
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: nEmergenceOnce 2s ease-out 9.5s;
+            opacity: 0;
+            z-index: 100;
+            text-shadow: 
+                0 0 50px var(--cyan-neon),
+                0 0 100px var(--purple-accent),
+                0 0 150px var(--magenta-glow);
+        }
+
+        /* FINAL PHASE: Perfect N on Black - PERMANENT */
+        .final-n {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--cyan-neon), var(--cyan-deep), var(--purple-accent));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: finalAppear 3s ease-out 11.5s forwards;
+            opacity: 0;
+            z-index: 300;
+            filter: 
+                drop-shadow(0 0 30px var(--cyan-neon))
+                drop-shadow(0 0 60px var(--purple-accent))
+                drop-shadow(0 0 90px var(--magenta-glow));
+        }
+
+        /* Gentle breathing effect for final N */
+        .final-n.breathing {
+            animation: 
+                finalAppear 3s ease-out 11.5s forwards,
+                gentleBreath 4s ease-in-out 14.5s infinite;
+        }
+
+        /* Title */
+        .stellar-info {
+            position: fixed;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 1000;
+            animation: titleFadeOut 13s ease-out forwards;
+        }
+
+        @keyframes titleFadeOut {
+            0% { opacity: 1; }
+            70% { opacity: 1; }
+            85% { opacity: 0.5; }
+            100% { opacity: 0; }
+        }
+
+        .stellar-title {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--cyan-neon), var(--white), var(--purple-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        }
+
+        .phase-indicator {
+            font-size: 1.2rem;
+            color: var(--cyan-light);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+
+        /* Notamy text */
+        .notamy-text {
+            position: fixed;
+            bottom: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--magenta-glow), var(--cyan-neon), var(--purple-accent));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            opacity: 0;
+            animation: notamyAppear 2s ease-out 13s forwards, gradientShift 3s ease-in-out 15s infinite;
+            text-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+            z-index: 200;
+        }
+
+        @keyframes notamyAppear {
+            0% { 
+                opacity: 0;
+                transform: translateX(-50%) scale(0.8);
+            }
+            100% { 
+                opacity: 1;
+                transform: translateX(-50%) scale(1);
+            }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* ONE-TIME ANIMATIONS */
+
+        @keyframes mainSequenceOnce {
+            0% { 
+                width: 200px;
+                height: 200px;
+                opacity: 1;
+            }
+            60% { 
+                width: 220px;
+                height: 220px;
+                opacity: 1;
+            }
+            100% { 
+                width: 180px;
+                height: 180px;
+                opacity: 0;
+            }
+        }
+
+        @keyframes coronaOnce {
+            0% { 
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.3;
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0.6;
+            }
+            100% { 
+                opacity: 0;
+            }
+        }
+
+        @keyframes redGiantOnce {
+            0% { 
+                width: 180px;
+                height: 180px;
+                opacity: 0;
+            }
+            30% { 
+                width: 300px;
+                height: 300px;
+                opacity: 1;
+            }
+            100% { 
+                width: 280px;
+                height: 280px;
+                opacity: 0;
+            }
+        }
+
+        @keyframes preCollapseOnce {
+            0% { 
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            20% { 
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+            40% { 
+                opacity: 0.7;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            60% { 
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.3);
+            }
+            80% { 
+                opacity: 0.5;
+                transform: translate(-50%, -50%) scale(0.6);
+            }
+            100% { 
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.4);
+            }
+        }
+
+        @keyframes coreCollapseOnce {
+            0% { 
+                width: 180px;
+                height: 180px;
+                opacity: 1;
+            }
+            50% { 
+                width: 80px;
+                height: 80px;
+                opacity: 1;
+            }
+            90% { 
+                width: 20px;
+                height: 20px;
+                opacity: 1;
+            }
+            100% { 
+                width: 5px;
+                height: 5px;
+                opacity: 0;
+            }
+        }
+
+        @keyframes supernovaOnce {
+            0% { 
+                width: 5px;
+                height: 5px;
+                opacity: 0;
+            }
+            20% { 
+                width: 100px;
+                height: 100px;
+                opacity: 1;
+            }
+            50% { 
+                width: 300px;
+                height: 300px;
+                opacity: 1;
+            }
+            100% { 
+                width: 500px;
+                height: 500px;
+                opacity: 0;
+            }
+        }
+
+        @keyframes shockWaveOnce {
+            0% {
+                width: 50px;
+                height: 50px;
+                opacity: 1;
+                border-width: 3px;
+            }
+            100% {
+                width: 800px;
+                height: 800px;
+                opacity: 0;
+                border-width: 0px;
+            }
+        }
+
+        @keyframes debrisOnce {
+            0% { 
+                opacity: 0;
+                transform: translate(0, 0) scale(0);
+            }
+            20% { 
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% { 
+                opacity: 0.3;
+                transform: translate(var(--debris-x, 100px), var(--debris-y, 100px)) scale(1.5);
+            }
+        }
+
+        @keyframes singularityOnce {
+            0% { 
+                width: 10px;
+                height: 10px;
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0);
+            }
+            50% { 
+                width: 5px;
+                height: 5px;
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% { 
+                width: 2px;
+                height: 2px;
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.1);
+            }
+        }
+
+        @keyframes nEmergenceOnce {
+            0% { 
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0) rotate(0deg);
+                filter: blur(20px);
+            }
+            30% { 
+                opacity: 0.5;
+                transform: translate(-50%, -50%) scale(0.5) rotate(180deg);
+                filter: blur(10px);
+            }
+            70% { 
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1) rotate(360deg);
+                filter: blur(5px);
+            }
+            100% { 
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1.2) rotate(540deg);
+                filter: blur(0px);
+            }
+        }
+
+        @keyframes finalAppear {
+            0% { 
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.6);
+                background-position: 0% 50%;
+                filter: 
+                    drop-shadow(0 0 20px var(--cyan-neon))
+                    drop-shadow(0 0 40px var(--purple-accent));
+            }
+            50% { 
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(0.9);
+                background-position: 50% 50%;
+                filter: 
+                    drop-shadow(0 0 35px var(--cyan-neon))
+                    drop-shadow(0 0 70px var(--purple-accent))
+                    drop-shadow(0 0 105px var(--magenta-glow));
+            }
+            100% { 
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+                background-position: 100% 50%;
+                filter: 
+                    drop-shadow(0 0 30px var(--cyan-neon))
+                    drop-shadow(0 0 60px var(--purple-accent))
+                    drop-shadow(0 0 90px var(--magenta-glow));
+            }
+        }
+
+        @keyframes gentleBreath {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+                filter: 
+                    drop-shadow(0 0 30px var(--cyan-neon))
+                    drop-shadow(0 0 60px var(--purple-accent))
+                    drop-shadow(0 0 90px var(--magenta-glow));
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.02);
+                filter: 
+                    drop-shadow(0 0 35px var(--cyan-neon))
+                    drop-shadow(0 0 70px var(--purple-accent))
+                    drop-shadow(0 0 105px var(--magenta-glow));
+            }
+        }
+
+        /* Restart Button - Hidden by default, shows after sequence */
+        .restart-button {
+            position: fixed;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            background: linear-gradient(45deg, var(--cyan-neon), var(--purple-accent));
+            border: none;
+            border-radius: 50px;
+            color: #000;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0;
+            animation: buttonAppear 1s ease-out 15s forwards;
+        }
+
+        @keyframes buttonAppear {
+            0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        .restart-button:hover {
+            transform: translateX(-50%) scale(1.1);
             box-shadow: 0 0 30px var(--cyan-neon);
         }
 
-        /* Mobile Menu */
-        .mobile-menu {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--cyan-neon);
-            font-size: 2rem;
-            cursor: pointer;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-visual {
-                margin-top: 3rem;
-            }
-
-            .privacy-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-
-            .hero-title {
-                font-size: 3.5rem;
-            }
-
-            .section-title {
-                font-size: 2.5rem;
-            }
-
-            .cta-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .cta-primary,
-            .cta-secondary {
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .phone-container {
-                width: 280px;
-                height: 560px;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .moments-scroll {
-                gap: 1rem;
-            }
-
-            .moment-card {
-                flex: 0 0 250px;
-                height: 400px;
-            }
-        }
-
-        /* Loading Animation */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--black-deep);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .loader.hide {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loader-ring {
-            width: 100px;
-            height: 100px;
-            border: 3px solid transparent;
-            border-top-color: var(--cyan-neon);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Glitch Effect */
-        .glitch {
-            position: relative;
-            animation: glitch 2s infinite;
-        }
-
-        @keyframes glitch {
-            0%, 100% { 
-                text-shadow: 
-                    0.05em 0 0 rgba(255, 0, 0, 0.75),
-                    -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
-                    0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
-            }
-            14% {
-                text-shadow: 
-                    0.05em 0 0 rgba(255, 0, 0, 0.75),
-                    -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
-                    0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
-            }
-            15% {
-                text-shadow: 
-                    -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
-                    0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
-                    -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
-            }
-            49% {
-                text-shadow: 
-                    -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
-                    0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
-                    -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
-            }
-            50% {
-                text-shadow: 
-                    0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
-                    0.05em 0 0 rgba(0, 255, 0, 0.75),
-                    0 -0.05em 0 rgba(0, 0, 255, 0.75);
-            }
-            99% {
-                text-shadow: 
-                    0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
-                    0.05em 0 0 rgba(0, 255, 0, 0.75),
-                    0 -0.05em 0 rgba(0, 0, 255, 0.75);
-            }
-        }
+        /* Stellar Debris positions */
+        .stellar-debris:nth-child(10) { --debris-x: -80px; --debris-y: -80px; }
+        .stellar-debris:nth-child(11) { --debris-x: 80px; --debris-y: -90px; }
+        .stellar-debris:nth-child(12) { --debris-x: -90px; --debris-y: 80px; }
+        .stellar-debris:nth-child(13) { --debris-x: 90px; --debris-y: 90px; }
+        .stellar-debris:nth-child(14) { --debris-x: -120px; --debris-y: 0px; }
+        .stellar-debris:nth-child(15) { --debris-x: 120px; --debris-y: 0px; }
     </style>
 </head>
 <body>
-    <!-- Loader -->
-    <div class="loader">
-        <div class="loader-ring"></div>
+    <div class="cosmic-background"></div>
+
+    <div class="stellar-info">
+        <h1 class="stellar-title">This is</h1>
+        <div class="phase-indicator">Stellar Birth Sequence</div>
     </div>
 
-    <!-- Neon Grid Background -->
-    <div class="neon-grid"></div>
 
-    <!-- Floating Neon Shapes -->
-    <div class="neon-shape shape1"></div>
-    <div class="neon-shape shape2"></div>
-    <div class="neon-shape shape3"></div>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo glitch">Notamy</div>
-            <div class="nav-links">
-                <a href="#features" class="nav-link">Features</a>
-                <a href="#moments" class="nav-link">Moments</a>
-                <a href="#privacy" class="nav-link">Privacy</a>
-                <button class="download-btn">Download</button>
-            </div>
-            <button class="mobile-menu">☰</button>
+    <!-- Notamy text -->
+    <div class="notamy-text">Notamy</div>
+
+    <div class="stellar-container">
+        <div class="stellar-system">
+            <!-- Phase 1: Main Sequence Star -->
+            <div class="main-star"></div>
+            <div class="stellar-corona"></div>
+            <div class="stellar-corona"></div>
+            <div class="stellar-corona"></div>
+            <div class="stellar-corona"></div>
+
+            <!-- Phase 2: Red Giant -->
+            <div class="red-giant"></div>
+
+            <!-- Phase 3: Pre-Collapse -->
+            <div class="pre-collapse"></div>
+
+            <!-- Phase 4: Core Collapse -->
+            <div class="core-collapse"></div>
+
+            <!-- Phase 5: Supernova -->
+            <div class="supernova"></div>
+
+            <!-- Phase 6: Shock Waves -->
+            <div class="shock-wave"></div>
+            <div class="shock-wave"></div>
+            <div class="shock-wave"></div>
+
+            <!-- Phase 7: Stellar Debris -->
+            <div class="stellar-debris"></div>
+            <div class="stellar-debris"></div>
+            <div class="stellar-debris"></div>
+            <div class="stellar-debris"></div>
+            <div class="stellar-debris"></div>
+            <div class="stellar-debris"></div>
+
+            <!-- Phase 8: Singularity -->
+            <div class="singularity"></div>
+
+            <!-- Phase 9: N Emergence -->
+            <div class="emergent-n">N</div>
         </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1 class="hero-title">
-                    Be Who You<br>
-                    Choose to Be
-                </h1>
-                <p class="hero-subtitle">
-                    Anonymous or authentic. Hidden or visible.
-                    The choice is yours, always.
-                </p>
-                <div class="cta-container">
-                    <button class="cta-primary">
-                        <span>Download for iOS</span>
-                    </button>
-                    <button class="cta-secondary">
-                        <span>Download for Android</span>
-                    </button>
-                </div>
-            </div>
+        <!-- FINAL PHASE: Perfect N on Black - STAYS FOREVER -->
+        <div class="final-n">N</div>
+    </div>
 
-            <div class="hero-visual">
-                <div class="phone-container">
-                    <div class="phone-frame">
-                        <div class="phone-screen">
-                            <!-- Onboarding Screen -->
-                            <div class="onboarding-screen">
-                                <div class="bg-overlay"></div>
-                                
-                                <!-- Logo -->
-                                <div class="logo-container">
-                                    <div class="logo-glass">
-                                        <div class="logo-gradient"></div>
-                                        <div class="logo-inner">
-                                            <div class="n-shape">
-                                                <div class="n-bar-left"></div>
-                                                <div class="n-bar-diagonal"></div>
-                                                <div class="n-bar-right"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- App name and tagline -->
-                                <div class="text-container">
-                                    <h2 class="app-name">notamy</h2>
-                                    <p class="app-tagline">Connect invisibly, impact visibly</p>
-                                </div>
-
-                                <!-- Get Started button -->
-                                <div class="get-started-button">
-                                    <div class="button-gradient">
-                                        <span>Get Started</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="section-header">
-            <h2 class="section-title">Unique Features</h2>
-            <p class="section-subtitle">Everything you need to truly express yourself</p>
-        </div>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🎭</div>
-                <h3 class="feature-title">Your Choice</h3>
-                <p class="feature-description">
-                    Be anonymous or show yourself. 
-                    Switch between modes anytime.
-                </p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔐</div>
-                <h3 class="feature-title">Secure Chat</h3>
-                <p class="feature-description">
-                    End-to-end encrypted messages. 
-                    Your conversations remain private.
-                </p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3 class="feature-title">Ephemeral Moments</h3>
-                <p class="feature-description">
-                    Your posts disappear after 24 hours. 
-                    Live in the moment without traces.
-                </p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📍</div>
-                <h3 class="feature-title">Context Aware</h3>
-                <p class="feature-description">
-                    Connect based on location, interests, or mood. 
-                    Be who you are in each context.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Moments Section -->
-    <section id="moments" class="moments">
-        <div class="moments-container">
-            <div class="section-header">
-                <h2 class="section-title">Moments That Matter</h2>
-                <p class="section-subtitle">Share authentically, disappear gracefully</p>
-            </div>
-            <div class="moments-scroll">
-                <div class="moment-card">
-                    <div class="moment-user">
-                        <div class="moment-avatar"></div>
-                        <div class="moment-username">anonymous_247</div>
-                    </div>
-                    <div class="moment-content">
-                        "Finally a place where I can be myself without filters 🌟"
-                    </div>
-                    <div class="moment-time">now</div>
-                </div>
-                <div class="moment-card">
-                    <div class="moment-user">
-                        <div class="moment-avatar" style="background: linear-gradient(135deg, #ff00ff, #00ffff);"></div>
-                        <div class="moment-username">real_me</div>
-                    </div>
-                    <div class="moment-content">
-                        "Sometimes being anonymous is being the most authentic 💭"
-                    </div>
-                    <div class="moment-time">2 min ago</div>
-                </div>
-                <div class="moment-card">
-                    <div class="moment-user">
-                        <div class="moment-avatar" style="background: linear-gradient(135deg, #b366ff, #00cccc);"></div>
-                        <div class="moment-username">context_switch</div>
-                    </div>
-                    <div class="moment-content">
-                        "Love how I can be professional by day and creative by night ✨"
-                    </div>
-                    <div class="moment-time">5 min ago</div>
-                </div>
-                <div class="moment-card">
-                    <div class="moment-user">
-                        <div class="moment-avatar" style="background: linear-gradient(135deg, #00ffff, #b366ff);"></div>
-                        <div class="moment-username">freedom_seeker</div>
-                    </div>
-                    <div class="moment-content">
-                        "The freedom to choose who to be in each moment is liberating 🦋"
-                    </div>
-                    <div class="moment-time">10 min ago</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Privacy Section -->
-    <section id="privacy" class="privacy">
-        <div class="section-header">
-            <h2 class="section-title">Privacy by <span class="gradient-text">Design</span></h2>
-            <p class="section-subtitle">Your identity, your rules</p>
-        </div>
-        <div class="privacy-grid">
-            <div class="privacy-item">
-                <div class="privacy-icon">🎯</div>
-                <h3 class="feature-title">You Decide</h3>
-                <p class="feature-description">
-                    Choose when to be anonymous and when to reveal yourself. Full control.
-                </p>
-            </div>
-            <div class="privacy-item">
-                <div class="privacy-icon">🔒</div>
-                <h3 class="feature-title">Zero Tracking</h3>
-                <p class="feature-description">
-                    We don't track or store data you don't want us to. Privacy first.
-                </p>
-            </div>
-            <div class="privacy-item">
-                <div class="privacy-icon">🎨</div>
-                <h3 class="feature-title">Multiple Personas</h3>
-                <p class="feature-description">
-                    Create different identities for different contexts. Be multifaceted.
-                </p>
-            </div>
-            <div class="privacy-item">
-                <div class="privacy-icon">🛡️</div>
-                <h3 class="feature-title">Protected Always</h3>
-                <p class="feature-description">
-                    Military-grade encryption protects all your interactions.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Final CTA -->
-    <section class="final-cta">
-        <h2 class="cta-title">Start Being You</h2>
-        <p class="section-subtitle" style="margin-bottom: 3rem;">
-            Join thousands who've found the freedom to be themselves
-        </p>
-        <div class="cta-container" style="justify-content: center;">
-            <button class="cta-primary">
-                Download for iOS
-            </button>
-            <button class="cta-primary">
-                Download for Android
-            </button>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="social-links">
-            <a href="#" class="social-link">📱</a>
-            <a href="#" class="social-link">💬</a>
-            <a href="#" class="social-link">🌐</a>
-            <a href="#" class="social-link">📧</a>
-        </div>
-        <p style="color: rgba(255, 255, 255, 0.5);">
-            © 2025 Notamy. Be who you choose to be.
-        </p>
-    </footer>
+    <button class="restart-button" onclick="restartSequence()">Play Again</button>
 
     <script>
-        // Remove loader
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.querySelector('.loader').classList.add('hide');
-            }, 1000);
-        });
+        // Add breathing effect to final N after it appears
+        setTimeout(() => {
+            document.querySelector('.final-n').classList.add('breathing');
+        }, 14500);
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
+        // Update phase indicator during sequence
+        const phases = [
+            "Stellar Birth Sequence",
+            "Main Sequence Star",
+            "Red Giant Expansion", 
+            "Pre-Collapse Instability",
+            "Core Collapse",
+            "Supernova Explosion",
+            "Shock Wave Propagation", 
+            "Stellar Debris Formation",
+            "Singularity Birth",
+            "N Emergence",
+            "Genesis Complete"
+        ];
 
-        // Navbar scroll effect
-        let lastScroll = 0;
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            const currentScroll = window.pageYOffset;
+        const phaseTimes = [0, 500, 3000, 5000, 6500, 7500, 8000, 8500, 9500, 11000, 14500];
 
-            if (currentScroll > 50) {
-                nav.style.background = 'rgba(0, 0, 0, 0.95)';
-                nav.style.backdropFilter = 'blur(30px)';
-            } else {
-                nav.style.background = 'rgba(0, 0, 0, 0.8)';
-                nav.style.backdropFilter = 'blur(20px)';
-            }
-
-            lastScroll = currentScroll;
-        });
-
-        // Parallax effect
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const shapes = document.querySelectorAll('.neon-shape');
+        function updatePhaseIndicator() {
+            const phaseIndicator = document.querySelector('.phase-indicator');
             
-            shapes.forEach((shape, index) => {
-                const speed = 0.5 + (index * 0.2);
-                shape.style.transform = `translateY(${scrolled * speed}px)`;
+            phaseTimes.forEach((time, index) => {
+                setTimeout(() => {
+                    if (phaseIndicator && index < phases.length) {
+                        phaseIndicator.textContent = phases[index];
+                        if (index >= 9) {
+                            phaseIndicator.style.color = '#00ffff';
+                            phaseIndicator.style.fontWeight = '800';
+                            phaseIndicator.style.textShadow = '0 0 20px #00ffff';
+                        }
+                    }
+                }, time);
             });
-        });
+        }
 
-        // Button ripple effect
-        document.querySelectorAll('button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                const ripple = document.createElement('span');
-                const rect = this.getBoundingClientRect();
-                const size = Math.max(rect.width, rect.height);
-                const x = e.clientX - rect.left - size / 2;
-                const y = e.clientY - rect.top - size / 2;
-                
-                ripple.style.width = ripple.style.height = size + 'px';
-                ripple.style.left = x + 'px';
-                ripple.style.top = y + 'px';
-                ripple.classList.add('ripple');
-                
-                this.appendChild(ripple);
-                setTimeout(() => ripple.remove(), 600);
-            });
-        });
+        // Restart function
+        function restartSequence() {
+            location.reload();
+        }
 
-        // Add ripple styles
-        const style = document.createElement('style');
-        style.textContent = `
-            button {
-                position: relative;
-                overflow: hidden;
+        // Start phase updates immediately
+        updatePhaseIndicator();
+
+        // Add stellar wind particles during early phases
+        function createStellarWind() {
+            const container = document.querySelector('.stellar-system');
+            if (!container) return;
+            
+            for (let i = 0; i < 8; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = '2px';
+                particle.style.height = '2px';
+                particle.style.background = '#ffaa00';
+                particle.style.borderRadius = '50%';
+                particle.style.boxShadow = '0 0 5px currentColor';
+                particle.style.top = '50%';
+                particle.style.left = '50%';
+                particle.style.transform = 'translate(-50%, -50%)';
+                particle.style.animation = `particleWind ${2 + Math.random() * 3}s ease-out`;
+                particle.style.animationDelay = `${Math.random() * 2}s`;
+                particle.style.opacity = '0.7';
+                
+                container.appendChild(particle);
+                
+                setTimeout(() => {
+                    if (particle.parentNode) particle.remove();
+                }, 5000);
             }
-            .ripple {
-                position: absolute;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.6);
-                transform: scale(0);
-                animation: ripple-animation 0.6s ease-out;
-                pointer-events: none;
-            }
-            @keyframes ripple-animation {
-                to {
-                    transform: scale(4);
+        }
+
+        // Add particle wind animation
+        const windStyle = document.createElement('style');
+        windStyle.textContent = `
+            @keyframes particleWind {
+                0% { 
+                    transform: translate(-50%, -50%) scale(0);
+                    opacity: 0;
+                }
+                20% { 
+                    transform: translate(-50%, -50%) scale(1);
+                    opacity: 0.7;
+                }
+                100% { 
+                    transform: translate(${-200 + Math.random() * 400}px, ${-200 + Math.random() * 400}px) scale(0);
                     opacity: 0;
                 }
             }
         `;
-        document.head.appendChild(style);
+        document.head.appendChild(windStyle);
 
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // Create stellar wind only during first 10 seconds
+        const windInterval = setInterval(createStellarWind, 2000);
+        setTimeout(() => clearInterval(windInterval), 10000);
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe elements
-        document.querySelectorAll('.feature-card, .moment-card, .privacy-item').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'all 0.6s ease';
-            observer.observe(el);
-        });
-
-        // Auto-scroll moments
-        const momentsScroll = document.querySelector('.moments-scroll');
-        let isScrolling = false;
-
-        momentsScroll.addEventListener('mouseenter', () => isScrolling = true);
-        momentsScroll.addEventListener('mouseleave', () => isScrolling = false);
-
-        setInterval(() => {
-            if (!isScrolling && momentsScroll) {
-                momentsScroll.scrollLeft += 1;
-                if (momentsScroll.scrollLeft >= momentsScroll.scrollWidth - momentsScroll.clientWidth) {
-                    momentsScroll.scrollLeft = 0;
-                }
-            }
-        }, 30);
+        // Console log for demo
+        console.log("🌟 This is: Single sequence initialized");
+        console.log("⏱️  Total duration: 15 seconds");
+        console.log("✨ Final N: Permanent with gentle breathing");
+        console.log("🎯 This is Notamy!");
     </script>
 </body>
 </html>
